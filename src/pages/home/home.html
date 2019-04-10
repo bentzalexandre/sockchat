@@ -1,14 +1,52 @@
-<ion-header>
+<ion-header padding-top>
+
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
-      Ionic Blank
+      Salon
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-label *ngIf="typing"> {{ typingusername }} écrit ...</ion-label>
+  <ion-grid>
+    <!-- Boucle qui affiche l'ensemble des messages recus, last représente la fin du tableau messages -->
+    <ion-row *ngFor="let message of messages; let last = last">
+      <!-- Si le message vient d'un autre utilisateur -->
+      <ion-col col-9 *ngIf="message.from!==nickname" class="message" [ngClass]="'other_message'">
+        <span class="user_name"><b>{{ message.from }} </b> : </span><br>
+        <span> {{ message.text }} </span>
+        <div class="time"> {{ message.created | date: 'dd/MM HH:mm' }} </div>
+      </ion-col>
+      <!-- Si le message provient de l'utilisateur -->
+      <ion-col offset-3 col-9 *ngIf="message.from === nickname" class="message" [ngClass]="'my_message'">
+        <span class="user_name"><b> {{ message.from }} </b>:</span><br>
+        <span> {{ message.text }}</span>
+        <div class="time"> {{ message.created | date: 'dd/MM HH:mm' }} </div>
+      </ion-col>
+      {{ last ? fin() : ''}} <!-- Amène le curseur vers le dernier message  -->
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer no-padding>
+  <ion-toolbar no-padding>
+    <ion-row no-margin>
+      <ion-col col-9 no-padding>
+        <ion-item class="message_row" no-lines>
+          <ion-input type="text" placeholder="Entrer votre message" [(ngModel)]="message" (keypress)="IsTyping()" (keyup)="noActivity()" (keyup.enter)="sendMessage()"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-3 no-padding>
+        <ion-item no-lines class="send_row">
+        <button ion-button icon-only clear color="primary" (click)="sendMessage()" [disabled]="message === ''">
+          <ion-icon class="send" ios="ios-send" md="md-send"></ion-icon>
+        </button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

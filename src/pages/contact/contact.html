@@ -1,0 +1,34 @@
+
+<ion-header>
+
+  <ion-navbar padding-top>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Contacts</ion-title>
+    <button ion-button clear slot="end" (click)="showAddContact()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+    <ion-list>
+
+        <ion-list-header>Vos Contacts</ion-list-header>
+
+        <ion-item *ngFor="let contact of contacts">
+          <ion-avatar item-start>
+            <img src="{{ '../../assets/avatar/' + contact.avatar }}" />
+          </ion-avatar>
+          <h2><ion-icon name="square" [ngClass]="(contact.status == 'online') ? 'square-online' : 'square-offline'"></ion-icon>{{ contact.pseudo }}</h2>
+          <p>Last message</p>
+          <ion-note item-end>Date</ion-note>
+        </ion-item>
+
+    </ion-list>
+
+</ion-content>

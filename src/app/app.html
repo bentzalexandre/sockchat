@@ -1,1 +1,13 @@
-<ion-nav [root]="rootPage"></ion-nav>
+
+<ion-menu [content]="mycontent">
+  <ion-content>
+    <ion-list>
+      <ion-list-header>Menu</ion-list-header>
+        <button clear ion-item icon-start menuClose (click)="deconnexion()">
+          <ion-icon item-start name="log-out"></ion-icon>
+          Déconnexion
+        </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-nav #mycontent [root]="rootPage"></ion-nav>

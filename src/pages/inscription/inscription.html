@@ -1,0 +1,73 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ChatRoom - Inscription</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="validator" (ngSubmit)="inscription()"><ion-list>
+    <ion-list-header>Pseudo</ion-list-header>
+    <ion-item>
+      <ion-input placeholder="Votre Pseudo" [(ngModel)]="pseudo" formControlName="pseudo"></ion-input>
+
+    </ion-item>
+
+    <ion-item *ngIf="( validator.get('pseudo').hasError('minlength') || validator.get('pseudo').hasError('required') || validator.get('pseudo').hasError('pattern') || validator.get('pseudo').hasError('maxlength') ) && validator.get('pseudo').touched">
+      <div class="error" *ngIf="validator.get('pseudo').hasError('required') && validator.get('pseudo').touched">
+        Veuillez entrer un pseudo
+      </div>
+      <div class="error" *ngIf="validator.get('pseudo').hasError('minlength') && validator.get('pseudo').touched">
+        5 carctères minimum
+      </div>
+      <div class="error" *ngIf="validator.get('pseudo').hasError('maxlength') && validator.get('pseudo').touched">
+        30 caractères maximum
+      </div>
+      <div class="error" *ngIf="validator.get('pseudo').hasError('pattern') && validator.get('pseudo').touched">
+        Entrer un pseudo valide (caractères spéciaux interdits)
+      </div>
+    </ion-item>
+    <ion-list-header>Avatar</ion-list-header>
+    <ion-item>
+      <ion-grid>
+        <ion-row justify-content-center>
+          <img [src]="avatar" width="110" height="110" />
+        </ion-row>
+        <ion-row justify-content-center class="row-avatar">
+          <br><br><button type="button" outline color="dark" (click)="openGallery()" ion-button>Choisir une photo</button>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-list-header>Adresse Mail</ion-list-header>
+    <ion-item>
+      <ion-input placeholder="example@domain.com" type="email" [(ngModel)]="mail" formControlName="mail"></ion-input>
+    </ion-item>
+
+    <!-- Message qui s'affiche en cas de non validité d'un condition de validation -->
+    <ion-item *ngIf="( validator.get('mail').hasError('required') || validator.get('mail').hasError('pattern') ) && validator.get('mail').touched">
+      <div class="error" *ngIf="validator.get('mail').hasError('required') && validator.get('mail').touched">
+        Veuillez entrer une adresse mail
+      </div>
+      <div class="error" *ngIf="validator.get('mail').hasError('pattern') && validator.get('mail').touched">
+        Adresse mail non valide
+      </div>
+    </ion-item>
+    <ion-list-header>Mot de passe</ion-list-header>
+    <ion-item padding-bottom>
+      <ion-input placeholder="••••••••" type="password" [(ngModel)]="mdp" formControlName="mdp"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="( validator.get('mdp').hasError('minlength') || validator.get('mdp').hasError('required') ) && validator.get('mdp').touched">
+      <div class="error" *ngIf="validator.get('mdp').hasError('required') && validator.get('mdp').touched">
+        Veuillez entrer un mot de passe
+      </div>
+      <div class="error" *ngIf="validator.get('mdp').hasError('minlength') && validator.get('mdp').touched">
+        8 carctères minimum
+      </div>
+    </ion-item>
+
+  <button ion-button full type='submit' [disabled]="!validator.valid">S'inscrire</button>
+</ion-list></form>
+</ion-content>
