@@ -1,4 +1,4 @@
-<ion-header padding>
+<ion-header>
   <ion-navbar>
     <ion-title>
       Connexion
@@ -6,25 +6,26 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content disable-scroll>
+<ion-content class='has-header' no-bounce>
 
-  <ion-img src="../../assets/imgs/logo.png"></ion-img>
+  <ion-img width="250px" height="250px" class="mx-auto d-block" src="../../assets/imgs/logo.png"></ion-img>
+
+  <form (ngSubmit)="connexion()">
+    <ion-item class="form-group col-md-3">
+      <ion-label floating for="email">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="mail" name="mail"></ion-input>
+    </ion-item>
 
   <ion-item>
-    <ion-label stacked color="primary">Adresse Mail</ion-label>
-    <ion-input placeholder="example@domain.com" type="email" [(ngModel)]="mail"></ion-input>
-  </ion-item>
-
-  <ion-item padding-bottom>
-    <ion-label stacked color="primary">Mot de passe</ion-label>
-    <ion-input placeholder="••••••••" type="password" [(ngModel)]="password" (keyup.enter)="connexion()"></ion-input>
+    <ion-label floating for="password">Password</ion-label>
+    <ion-input type="{{ passType }}" [(ngModel)]="password" (keyup.enter)="connexion()" name="password"></ion-input>
+    <button ion-button clear color="dark" type="button" item-right  (click)="showPassword()">
+      <ion-icon name="{{ iconName }}" style="position: relative; top: 3px;" height="22px" width="22px"></ion-icon>
+    </button>
   </ion-item>
 
   <ion-grid>
     <ion-row>
-
-      <ion-col col-1></ion-col>
-
       <ion-col col-5>
         <button ion-button (click)="connexion()" [disabled]="mail == ''">Connexion</button>
       </ion-col>
@@ -32,8 +33,8 @@
       <ion-col col-5>
         <button ion-button (click)="inscription()">Inscription</button>
       </ion-col>
-
     </ion-row>
   </ion-grid>
+  </form>
 
 </ion-content>
