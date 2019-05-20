@@ -3,19 +3,22 @@ import { AboutPage } from './../pages/about/about';
 import { TabsPage } from './../pages/tabs/tabs';
 import { ConnexionPage } from './../pages/connexion/connexion';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Base64 } from "@ionic-native/base64";
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 import { InscriptionPage } from '../pages/inscription/inscription';
+import { RoomPage } from '../pages/room/room';
+import { UsersPage } from '../pages/users/users';
+import { ProfilPage } from '../pages/profil/profil';
 
-const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
+const config: SocketIoConfig = { url: 'http://172.20.10.3:3001', options: {}};
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     AboutPage,
     ContactPage,
     InscriptionPage,
-    ConnexionPage
+    ConnexionPage,
+    RoomPage,
+    UsersPage,
+    ProfilPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,10 @@ const config: SocketIoConfig = { url: 'http://localhost:3001', options: {}};
     TabsPage,
     AboutPage,
     ContactPage,
-    InscriptionPage
+    InscriptionPage,
+    RoomPage,
+    UsersPage,
+    ProfilPage
   ],
   providers: [
     StatusBar,

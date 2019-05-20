@@ -1,34 +1,27 @@
 
 <ion-header>
-
-  <ion-navbar padding-top>
+  <ion-toolbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Contacts</ion-title>
-    <button ion-button clear slot="end" (click)="showAddContact()">
+    <button ion-button clear (click)="showAddContact()">
       <ion-icon name="add"></ion-icon>
     </button>
-  </ion-navbar>
-
+  </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
 
-    <ion-list>
-
-        <ion-list-header>Vos Contacts</ion-list-header>
-
-        <ion-item *ngFor="let contact of contacts">
-          <ion-avatar item-start>
-            <img src="{{ '../../assets/avatar/' + contact.avatar }}" />
+  <ion-list>
+    <ion-list-header>Mes Contacts</ion-list-header>
+    <div *ngFor="let contact of contacts">
+    <button ion-item *ngIf="contact.pseudo !== pseudo" id="contact.id" (click)="goToProfile(contact.id, contact.pseudo, contact.image)">
+        <ion-avatar item-start>
+            <img src="data:image/jpeg;base64,{{contact.image}}">
           </ion-avatar>
-          <h2><ion-icon name="square" [ngClass]="(contact.status == 'online') ? 'square-online' : 'square-offline'"></ion-icon>{{ contact.pseudo }}</h2>
-          <p>Last message</p>
-          <ion-note item-end>Date</ion-note>
-        </ion-item>
-
-    </ion-list>
-
+      {{ contact.pseudo }}
+    </button></div>
+  </ion-list>
 </ion-content>

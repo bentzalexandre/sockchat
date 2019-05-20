@@ -2,6 +2,7 @@ import { Socket } from 'ng-socket-io';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
+import { ProfilPage } from '../profil/profil';
 
 /**
  * Generated class for the ContactPage page.
@@ -18,44 +19,36 @@ import { Observable } from 'rxjs/Observable';
 export class ContactPage {
 
   pseudo: any = "";
-  contacts:any;
+  contacts: any;
+  demandes: any;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, public socket: Socket) {
     this.pseudo = this.navParams.get('pseudo');
-    console.log(this.contacts);
-    this.followContacts().subscribe(() => {
-      this.socket.emit("get-contacts", { pseudo: this.pseudo });
-      this.getContacts().subscribe(contacts => {
-        this.contacts = [];
-        this.contacts = contacts;
-      });
-    })
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
-  }
-
-  ionViewWillEnter(){
-    this.socket.emit("get-contacts", { pseudo: this.pseudo });
-    this.getContacts().subscribe(contacts => {
-      this.contacts = [];
-      this.contacts = contacts;
+    this.getContacts().subscribe(data => {
+        this.contacts = data;
+        console.log(this.contacts);
     });
   }
+
+  ionViewWillEnter() {
+    this.socket.emit("get-contacts", {});
+    this.getContacts().subscribe(data => {
+      this.contacts = data;
+    });
+  }
+
+  ionViewWillLeave() {
+    this.socket.emit("get-contacts", {});
+  }
+
+  goToProfile(id: any, pseudo: any, image: any) {
+    this.navCtrl.push(ProfilPage, { pseudo: this.pseudo, otherId: id, otherPseudo: pseudo, avatar: image });
+  }
+
 
   getContacts() {
     let observable = new Observable(observer => {
-      this.socket.on('return-contacts', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
-  }
-
-  followContacts() {
-    let observable = new Observable(observer => {
-      this.socket.on('log', (data) => {
+      this.socket.on('contacts', (data) => {
         observer.next(data);
       });
     });
@@ -67,9 +60,9 @@ export class ContactPage {
       title: 'Nouveau Contact',
       inputs: [
         {
-          name: 'Adresse mail',
+          name: 'Pseudo...',
           type: 'text',
-          placeholder: "Entrer l'adresse mail du contact"
+          placeholder: "Entrer le pseudo du nouveau contact :"
         }],
         buttons: [
           {
@@ -80,7 +73,7 @@ export class ContactPage {
               console.log('Confirm Cancel');
             }
           }, {
-            text: 'Envoyer',
+            text: 'Ajouter',
             handler: () => {
               console.log('Confirm Ok');
             }

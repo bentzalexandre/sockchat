@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+
+  </ion-navbar>
+</ion-header>
+
+
+  <ion-content>
+
+    <ion-list>
+      <ion-list-header>Utilisateurs connectés</ion-list-header>
+      <button ion-item *ngFor="let user of users" id="user.id" (click)="goToProfile(user.id, user.pseudo, user.image)">
+        <ion-avatar item-start>
+          <img src="data:image/jpeg;base64,{{user.image}}">
+        </ion-avatar>
+        {{ user.pseudo }}
+      </button>
+    </ion-list>
+
+
+
+  </ion-content>

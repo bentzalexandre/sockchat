@@ -1,4 +1,5 @@
-page-about {
+page-profil {
+
   ion-avatar {
     width: 40%;
     padding-bottom: 15px;
@@ -29,4 +30,14 @@ page-about {
   .square-offline {
     color: grey;
   }
+
+  ion-content button {
+  position: relative;
+  top: 40px;
+  }
+
+  button ion-icon {
+    color: cornflowerblue;
+  }
+
 }

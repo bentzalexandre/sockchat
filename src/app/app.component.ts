@@ -5,7 +5,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NavController } from 'ionic-angular';
 import { ConnexionPage } from '../pages/connexion/connexion';
-import { timer } from "rxjs/observable/timer";
 
 @Component({
   templateUrl: 'app.html'

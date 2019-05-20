@@ -5,17 +5,39 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+    <ion-toolbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>
+        Mon Profil
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>A Propos</ion-title>
-  </ion-navbar>
 
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+  <ion-content padding>
+      <ion-grid>
+        <ion-row justify-content-center>
+            <ion-avatar>
+                <img src="data:image/jpeg;base64,{{ image }}"/>
+            </ion-avatar>
+        </ion-row>
+        <ion-row>
+          <ion-title>{{ pseudo }}</ion-title>
+        </ion-row>
+        <ion-row justify-content-start>
+          <ion-item>
+            <ion-label>Statut</ion-label>
+            <ion-label class="status">{{ status }}</ion-label>
+            <ion-icon name="square" [ngClass]="(status == 'Connecté') ? 'square-online' : ((status == 'Occuppé') ? 'square-busy' : 'square-offline')" item-end></ion-icon>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label stacked>Résumé</ion-label>
+            <ion-label class="resume">{{ resume }}</ion-label>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
+    </ion-content>

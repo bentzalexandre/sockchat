@@ -1,25 +1,33 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Content } from 'ionic-angular';
-import { Socket } from 'ng-socket-io';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-import { UsersPage } from '../users/users';
-import { CameraOptions, Camera } from '@ionic-native/camera';
+import { Socket } from 'ng-socket-io';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
+/**
+ * Generated class for the RoomPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-room',
+  templateUrl: 'room.html',
 })
-export class HomePage {
+export class RoomPage {
 
   @ViewChild(Content) content: Content; // Gestion des composants de la vue
 
   pseudo: any; // Pseudo utilisateur
+  idDest: any;
+  pseudoDest: any;
   messages = []; // Tableau des messages
   message = ''; // Message en cours de saisie par l'utilisateur
   typing = false;
   typingusername: any;
   timer;
-  nbUsers: any;
 
 
   constructor(
@@ -29,6 +37,8 @@ export class HomePage {
     private camera: Camera
   ) {
     this.pseudo = this.navParams.get('pseudo');
+    this.idDest = this.navParams.get('destId');
+    this.pseudoDest = this.navParams.get('destPseudo')
 
     this.getMessages().subscribe( message => { // Surveillance des changements
       this.messages.push(message);
@@ -44,27 +54,11 @@ export class HomePage {
     this.getStopTyping().subscribe(() => {
       this.typing = false;
     });
-
-    this.getContacts().subscribe(data => {
-      this.nbUsers = Object.keys(data).length;
-    });
-
-  }
-
-  ionViewWillEnter() {
-    this.socket.emit("get-users", {});
-    this.getContacts().subscribe(data => {
-      this.nbUsers = Object.keys(data).length;
-    });
-  }
-
-  ionViewWillLeave() {
-    this.socket.emit("get-users", {});
   }
 
   sendMessage() {
     this.socket.emit('stop-typing');
-    this.socket.emit('general-message', this.message);
+    this.socket.emit('private-message', { id: this.idDest, text: this.message });
     this.message = '';
   }
 
@@ -72,7 +66,7 @@ export class HomePage {
     // Création de l'observateur du serveur
     let observable = new Observable(observer => {
       // Observation du serveur : réception des messages du socket
-      this.socket.on('g-message', (data) => {
+      this.socket.on('p-message', (data) => {
         // On place dans l'objet observer l'objet message retourné par notre serveur Socket
         observer.next(data);
       });
@@ -112,19 +106,6 @@ export class HomePage {
     }, 10000);
   }
 
-  getContacts() {
-    let observable = new Observable(observer => {
-      this.socket.on('users', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
-  }
-
-  goUsersList() {
-    this.navCtrl.push(UsersPage, { pseudo: this.pseudo });
-  }
-
   openGallery(): void {
 
     let cameraOptions: CameraOptions = {
@@ -139,7 +120,7 @@ export class HomePage {
     }
 
     this.camera.getPicture(cameraOptions).then((imageData) => {
-      this.socket.emit("add-image", imageData );
+      this.socket.emit("add-pimage", imageData );
      }, (err) => {
      });
   }

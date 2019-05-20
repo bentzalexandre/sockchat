@@ -1,7 +1,7 @@
 import { ContactPage } from './../contact/contact';
 import { AboutPage } from './../about/about';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 @IonicPage()
@@ -17,10 +17,10 @@ export class TabsPage {
 
   donnees = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public menuCtrl: MenuController) {
     // Initialisation des données pour tous les onglets / pages
     this.donnees = this.navParams.data;
-    // console.log(this.pseudo);
+    this.menuCtrl.enable(true);
   }
 
   ionViewDidLoad() {

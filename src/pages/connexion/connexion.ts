@@ -17,12 +17,14 @@ export class ConnexionPage {
   passType = 'password';
   iconName = "eye-off";
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public navParams: NavParams, private socket: Socket, public menuCtrl: MenuController) {
+  constructor(
+    public navCtrl: NavController,
+    public alertCtrl: AlertController,
+    public navParams: NavParams,
+    public socket: Socket,
+    public menuCtrl: MenuController
+  ) {
     this.menuCtrl.enable(false);
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConnexionPage');
   }
 
   connexion() {
@@ -30,11 +32,10 @@ export class ConnexionPage {
     this.socket.emit('connexion', { mail: this.mail, password: this.password });
     this.socket.once('status-connexion', verif => {
       if (verif.status == true) {
-        this.socket.connect();
         this.navCtrl.push(TabsPage, { pseudo: verif.pseudo });
       } else {
         this.alertCtrl.create({
-          title: "Echec",
+          title: "Echec de la connexion",
           subTitle: verif.error,
           buttons: ['OK']
         }).present();
@@ -42,19 +43,17 @@ export class ConnexionPage {
     });
   }
 
-  inscription() {
-    this.navCtrl.push(InscriptionPage);
-  }
+  inscription() { this.navCtrl.push(InscriptionPage); }
 
   showPassword() {
     this.showPass = !this.showPass;
-      if(this.showPass){
-        this.passType = 'text';
-        this.iconName = "eye";
-      } else {
-        this.passType = 'password';
-        this.iconName = "eye-off";
+
+    if(this.showPass){
+      this.passType = 'text';
+      this.iconName = "eye";
+    } else {
+      this.passType = 'password';
+      this.iconName = "eye-off";
     }
   }
-
 }

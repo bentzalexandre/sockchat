@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
 .ios {
   ion-icon {
     font-size: 25px;
   }
 
+  *:not(ion-icon) {
+    font-family: 'Raleway', sans-serif;
+  }
+}
 
+*:not(ion-icon) {
+  font-family: 'Raleway', sans-serif;
 }
 
 
