@@ -43,6 +43,10 @@
         </ion-grid>
       </ion-item>
 
+      <ion-item *ngIf="avatar == null">
+        <div class="error">Veuillez choisir une photo de profil</div>
+      </ion-item>
+
       <ion-list-header>Adresse Mail</ion-list-header>
       <ion-item>
         <ion-input placeholder="example@domain.com" type="email" [(ngModel)]="mail" formControlName="mail"></ion-input>
@@ -75,7 +79,7 @@
           </div>
       </ion-item>
 
-      <button ion-button full type='submit' [disabled]="!validator.valid">S'inscrire</button>
+      <button ion-button full type='submit' [disabled]="!validator.valid || avatar == null">S'inscrire</button>
 
     </ion-list>
   </form>

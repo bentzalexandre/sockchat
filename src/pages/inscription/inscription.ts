@@ -18,7 +18,7 @@ export class InscriptionPage {
   mdp: string = "";
   validator: FormGroup;
   imagePreview: string = "../../assets/avatar/Avatar.jpg";
-  imageEncoded: string;
+  imageEncoded: string = "";
 
   constructor(
     public camera: Camera,
