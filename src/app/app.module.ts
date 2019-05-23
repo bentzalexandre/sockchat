@@ -17,9 +17,8 @@ import { InscriptionPage } from '../pages/inscription/inscription';
 import { RoomPage } from '../pages/room/room';
 import { UsersPage } from '../pages/users/users';
 import { ProfilPage } from '../pages/profil/profil';
-import { DefaultImageProvider } from '../providers/default-image/default-image';
 
-const config: SocketIoConfig = { url: 'http://172.20.10.3:3001', options: {}};
+const config: SocketIoConfig = { url: 'http://192.168.0.26:3001', options: {}};
 
 @NgModule({
   declarations: [

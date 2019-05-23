@@ -1,24 +1,18 @@
 
 <ion-content padding no-bounce>
   <ion-grid style="height: 100%;">
-
       <ion-row justify-content-center align-items-center class="" style="height: 100%;">
         <ion-col col-6>
-
           <ion-img width="250px" height="250px" class="mx-auto d-block" src="../../assets/imgs/logo.png"></ion-img>
-
           <form (ngSubmit)="connexion()">
             <ion-card style="padding-bottom: 25px;">
-
               <ion-card-title>
                 <ion-title>Connexion</ion-title>
               </ion-card-title>
-
               <ion-item>
                 <ion-label floating color="primary" for="email">Email</ion-label>
                 <ion-input type="email" [(ngModel)]="mail" name="mail"></ion-input>
               </ion-item>
-
               <ion-item>
                 <ion-label floating color="primary" for="password">Password</ion-label>
                 <ion-input type="{{ passType }}" [(ngModel)]="password" name="password"></ion-input>
@@ -26,9 +20,7 @@
                    <ion-icon name="{{ iconName }}" style="position: relative; top: 20px;" height="22px" width="22px"></ion-icon>
                 </button>
               </ion-item>
-
             </ion-card>
-
             <div class="row pt-5">
               <div class="col-5 mx-auto">
                 <button ion-button full outline type="submit" [disabled]="mail == ''">Connexion</button>
@@ -37,11 +29,8 @@
               <button ion-button full outline type="button" (click)="inscription()">Inscription</button>
             </div>
           </div>
-
         </form>
-
       </ion-col>
     </ion-row>
-
   </ion-grid>
 </ion-content>
